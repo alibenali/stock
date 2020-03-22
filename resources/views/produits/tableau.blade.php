@@ -14,7 +14,7 @@
         @foreach($list as $produit)
       <tr>
         <td>{{$produit->id}}</td>
-        <td>{{$produit->fournisseurs->nom_complet. $pourcentage->pourcentage}} </td>
+        <td>{{$produit->fournisseurs->nom_complet}} </td>
         <td>{{$produit->designation}}</td>
         <td>{{$produit->familles->nom}}</td>
         <td>{{$produit->quantite}}</td>
