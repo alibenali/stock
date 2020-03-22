@@ -54,7 +54,7 @@
                             <label for="colis" class="col-md-4 col-form-label text-md-right">{{ __('Colis dimensions') }}</label>
 
                             <div class="col-md-6">
-                                <input id="colis" type="number" step="0.01" lang="en" class="form-control" name="colis" required>
+                                <input oninput="calculateQuantite()" id="colis" type="number" step="0.01" lang="en" class="form-control" name="colis" required>
                             </div>
                         </div>
                         
@@ -62,7 +62,7 @@
                             <label for="nbr_colis" class="col-md-4 col-form-label text-md-right">{{ __('Nombre colis') }}</label>
 
                             <div class="col-md-6">
-                                <input id="nbr_colis" type="number" class="form-control" name="nbr_colis" required>
+                                <input oninput="calculateQuantite()" id="nbr_colis" type="number" class="form-control" name="nbr_colis" required>
                             </div>
                         </div> 
 
@@ -95,4 +95,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    function calculateQuantite(){
+        var colis = $('#colis').val();
+        var nbrColis = $('#nbr_colis').val();
+        $('#quantite').val(colis*nbrColis);
+    }
+</script>
 @endsection
