@@ -18,7 +18,7 @@
             @foreach($achats as $achat)
           <tr>
             <td>{{$achat->id}}</td>
-            <td>{{$achat->produit_id}}</td>
+          <td><a href="{{ url('produit/'.$achat->produit_id) }}">{{$achat->produit_id}}</a></td>
             <td>{{$achat->quantite}}</td>
             <td>{{$achat->prix_achat}}</td>
             <td>{{$achat->statut}}</td>
