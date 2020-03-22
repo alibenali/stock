@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Produit;
 use App\Fournisseur;
 use App\Famille;
+use App\Achat;
 use App\Pourcentage;
 
 class ProduitController extends Controller
@@ -91,7 +92,7 @@ class ProduitController extends Controller
      */
     public function inserer(Request $request)
     {
-         Produit::create([
+        $produit = Produit::create([
             'fournisseur_id' => $request->input('fournisseur'),
             'famille_id' => $request->input('famille'),
             'designation' => $request->input('designation'),
@@ -99,6 +100,14 @@ class ProduitController extends Controller
             'colis' => $request->input('colis'),
             'nbr_colis' => $request->input('nbr_colis'),
             'prix_achat' => $request->input('prix_achat'),
+        ]);
+
+        Achat::create([
+            'fournisseur_id' => $request->input('fournisseur'),
+            'produit_id' => $produit->id,
+            'quantite'   => $request->input('quantite'),
+            'prix_achat'   => $request->input('prix_achat'),
+            'statut'     => 'terminé',
         ]);
 
         return redirect('ajouter/produit')->with('status','Produit ajouté');;
