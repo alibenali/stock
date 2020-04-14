@@ -43,8 +43,9 @@
           </tbody>
         </table>
         <p class="mt-1 text-center"><b>Total:</b> {{ceil(ceil($total)/10)*10}}</p>
+        <p class="mt-1 text-center">{{ \Carbon\Carbon::now('Africa/Algiers') }} <a class="ml-4">Bon N° {{ $vente->id }}</a> </p>
         <p class="mt-1" style="font-size: 0.7rem;"><b>Remarque:</b> Vérifier votre produit avant de quitter le magasin, Puiseque la maison n'accept plus le changement ou le rembourssement.</p>
-
+        
     </div>
     <div class="col-4 border-left">
       <table class="table w-100" id="vente">

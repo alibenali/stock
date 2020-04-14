@@ -30,12 +30,16 @@ class VenteController extends Controller
      */
     public function inserer(Request $request ,$id, $pourcentage)
     {
+        $prix_unite = ceil(ceil($request->input('prix_unite'))/10)*10;
+        $prix_total = $prix_unite * $request->input('new_quantite');
+        $prix_total = ceil(ceil($prix_total)/10)*10;
+
         Vente::create([
             'produit_id' => $id,
             'quantite' => $request->input('new_quantite'),
             'nbr_boites' => $request->input('nbr_boites'),
-            'prix_unite' => $request->input('prix_unite'),
-            'prix_total' => $request->input('prix_total'),
+            'prix_unite' => $prix_unite,
+            'prix_total' => $prix_total,
             'nom_acheteur' => $request->input('nom_acheteur'),
             'vendeur_id' => Auth::id(),
             'statut' => 'panier',
