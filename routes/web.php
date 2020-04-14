@@ -19,6 +19,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/produit/{id}', 'ProduitController@voire')->name('voire.produit');
+Route::get('/produits', 'ProduitController@voire_tous')->name('voire_tous.produit');
 Route::get('/ajouter/produit', 'ProduitController@ajouter')->name('ajouter.produit');
 Route::post('/inserer/produit', 'ProduitController@inserer')->name('inserer.produit');
 Route::get('/fetch/produit', 'ProduitController@fetch')->name('fetch.produit');
@@ -42,9 +43,13 @@ Route::post('/desactiver/pourcentage/{id}', 'PourcentageController@desactiver')-
 Route::post('/activer/pourcentage/{id}', 'PourcentageController@activer')->name('activer.pourcentage');
 
 Route::get('/voire/ventes/', 'VenteController@voire')->name('voire.ventes');
+Route::get('/ventes/panier', 'VenteController@panier')->name('panier.ventes');
 Route::get('/ajouter/vente/{produit}/{pourcentage}', 'VenteController@ajouter')->name('ajouter.vente');
 Route::post('/inserer/vente/{produit}/{pourcentage}', 'VenteController@inserer')->name('inserer.vente');
 Route::post('/annuler/vente/{produit}/', 'VenteController@annuler')->name('annuler.vente');
+Route::post('/valider/vente/{id}/', 'VenteController@valider')->name('valider.vente');
+Route::post('/valider_tous/vente/', 'VenteController@valider_tous')->name('valider_tous.vente');
+Route::get('/ventes/bon', 'VenteController@bon')->name('bon.ventes');
 
 Route::get('/voire/casses/', 'CasseController@voire')->name('voire.casses');
 Route::get('/ajouter/casse/{produit}/', 'CasseController@ajouter')->name('ajouter.casse');

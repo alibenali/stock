@@ -119,9 +119,10 @@ class ProduitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function voire_tous()
     {
-        //
+        $produits = Produit::all();
+        return view('produits.voire_tous', ['produits' => $produits]);
     }
 
     /**

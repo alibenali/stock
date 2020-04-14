@@ -88,6 +88,32 @@
 </div>
 
 <script type="application/javascript">
+
+var t = false
+$('#quantite').focus(function () {
+    var max = {{ $produit->quantite }};
+    var $this = $(this)
+    t = setInterval(
+    function () {
+        if (($this.val() < 1 || $this.val() > max) && $this.val().length != 0) {
+            if ($this.val() < 1) {
+                $this.val(1)
+            }
+            if ($this.val() > max) {
+                $this.val(max)
+            }
+        }
+    }, 50)
+})
+
+$('#quantite').blur(function () {
+    if (t != false) {
+        window.clearInterval(t)
+        t = false;
+    }
+})
+
+
     jQuery(function($){
         
     var input = $('#quantite')
@@ -95,7 +121,12 @@
     input.on('keyup', function () {
         var quantite = input.val();
         var newQuantite = Math.ceil(quantite/{{$produit->colis}}) * {{$produit->colis}};
+        if(newQuantite > {{ $produit->quantite }}){
+            alert('Quantité insuffisante');
+            input.val(1);
+            newQuantite(1);
 
+        }
         $('#div_new_quantite').addClass("d-none");
         $('#div_nbr_boites').addClass("d-none");
         $('#new_quantite').val(quantite);

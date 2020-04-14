@@ -75,7 +75,7 @@
                                 <a class="dropdown-item" href="{{ route('voire.casses') }}">Les casses</a>
                                 <a class="dropdown-item" href="{{ route('voire.utilisateurs') }}">Les utilisateurs</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('ajouter.produit') }}">Les produits</a>
+                                <a class="dropdown-item" href="{{ route('voire_tous.produit') }}">Les produits</a>
                                 <a class="dropdown-item" href="{{ route('voire.achats') }}">Les achats</a>
                                 </div>
                             </li>

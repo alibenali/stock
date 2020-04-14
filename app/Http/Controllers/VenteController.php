@@ -38,9 +38,9 @@ class VenteController extends Controller
             'prix_total' => $request->input('prix_total'),
             'nom_acheteur' => $request->input('nom_acheteur'),
             'vendeur_id' => Auth::id(),
-            'statut' => 'vendu',
+            'statut' => 'panier',
         ]);
-
+        /*
         $produit = Produit::find($id);
         $produit->quantite = $produit->quantite - $request->input('new_quantite');
         $produit->nbr_colis = $produit->quantite / $produit->colis;
@@ -48,8 +48,47 @@ class VenteController extends Controller
             $produit->nbr_colis = $produit->quantite / $produit->colis;
         }
         $produit->save();
+        */
+
+        return redirect('ventes/panier');
         
-        return 'Espace Bon';
+        }
+
+    public function valider_tous()
+    {
+        $ventes = Vente::where('statut', 'panier')->get();
+        foreach($ventes as $vente){
+            $produit = Produit::find($vente->produit_id);
+            $produit->quantite = $produit->quantite - $vente->quantite;
+            $produit->nbr_colis = $produit->quantite / $produit->colis;
+            if($produit->nbr_colis != $produit->quantite){
+                $produit->nbr_colis = $produit->quantite / $produit->colis;
+            }
+            $produit->save();
+        }
+        
+
+        Vente::where('statut', 'panier')->update(['statut' => 'vendu']);
+        
+        return view('ventes.bon', ['ventes' => $ventes]);
+        
+    }
+
+    public function valider($id)
+    {
+        $vente = Vente::find($id);
+        
+        $produit = Produit::find($vente->produit_id);
+        $produit->quantite = $produit->quantite - $vente->quantite;
+        $produit->nbr_colis = $produit->quantite / $produit->colis;
+        if($produit->nbr_colis != $produit->quantite){
+        $produit->nbr_colis = $produit->quantite / $produit->colis;
+        }
+        $produit->save();
+
+        Vente::find($id)->update(['statut' => 'vendu']);
+        
+        return redirect('ventes/panier');
     }
 
     /**
@@ -62,6 +101,17 @@ class VenteController extends Controller
     {
         $ventes = Vente::all();
         return view('ventes.voire', ['ventes'=> $ventes]);
+    }
+
+    public function panier()
+    {
+        $ventes = Vente::where('statut', 'panier')->get();
+        return view('ventes.panier', ['ventes'=> $ventes]);
+    }
+
+    public function bon()
+    {
+        return view('ventes.bon');
     }
 
     /**

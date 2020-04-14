@@ -23,6 +23,11 @@ class VentePolicy
 
     public function annuler(User $user, Vente $vente)
     {
-        return $vente->statut == 'vendu';
+        return $vente->statut !== 'Annulé';
+    }
+
+    public function valider(User $user, Vente $vente)
+    {
+        return $vente->statut == 'panier';
     }
 }

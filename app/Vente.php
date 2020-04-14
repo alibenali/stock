@@ -11,4 +11,8 @@ class Vente extends Model
     public function produits(){
         return $this->hasMany('App\Produit');
     }
+
+    public function produit(){
+        return $this->belongsTo('App\Produit', 'produit_id');
+    }
 }
