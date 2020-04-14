@@ -3,11 +3,13 @@
 @section('content')
 
 <style>
+  /*
   @media print{@page {size: landscape}}
   tr td{
   padding: 0 !important;
   margin: 0 !important;
 }
+  */
 </style>
 
 <div class="container-fluid" id="toPrint">
