@@ -2,8 +2,8 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Fournisseur</th>
         <th>Designation</th>
+        <th>Fournisseur</th>
         <th>Categorie</th>
         <th>Quantité</th>
         <th>Prix Unit</th>
@@ -14,11 +14,11 @@
         @foreach($list as $produit)
       <tr>
         <td>{{$produit->id}}</td>
-        <td>{{$produit->fournisseurs->nom_complet}} </td>
         <td>{{$produit->designation}}</td>
+        <td>{{$produit->fournisseurs->nom_complet}} </td>
         <td>{{$produit->familles->nom}}</td>
         <td>{{$produit->quantite}}</td>
-        <td>{{$produit->prix_achat + ($produit->prix_achat * $pourcentage->pourcentage / 100)}}</td>
+        <td>{{ceil(ceil($produit->prix_achat + ($produit->prix_achat * $pourcentage->pourcentage / 100)/10)*10)}}</td>
 
         <td>
           <button class="btn-success" onclick="window.open('{{ route('ajouter.vente', [$produit->id, $pourcentage->id]) }}', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=80,left=500,width=450,height=600');">Vendre</button>
