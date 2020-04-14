@@ -16,7 +16,7 @@
       <h1 style="font-size: 1.25rem;" class="mb-1 text-center"><b>Bienvenue chez Ayham ceramique</b></h1>
       <h1 style="font-size: 0.8rem;" class="mb-1 text-center"><b>Page facebook: Ayham ceramique</b></h1>
       
-      <h1 style="font-size: 0.8rem;" class="mb-1 text-center"><b>Le Whatsapp w Le Viber le numéro du magasin</b></h1>
+      <h1 style="font-size: 0.8rem;" class="mb-1 text-center"><b>Le WhatsApp et le Viber est le numéro du magasin</b></h1>
 
       <table class="table w-100" id="vente">
           <thead>
