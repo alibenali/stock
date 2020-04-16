@@ -12,7 +12,9 @@
         </tr>
       </thead>
       <tbody>
+          @PHP($total = 0)
           @foreach($ventes as $vente)
+          @PHP($total = $total + $vente->prix_total)
         <tr>
           <td>
                 @can('annuler', $vente)
@@ -30,6 +32,8 @@
           @endforeach
       </tbody>
     </table>
+
+        <h3 class="text-center mx-auto d-block mt-2 mb-3"><b>Totale:</b> {{number_format($total, 0, '.', ' ')}}</h3>
 
         <form method="POST" action='{{ route('valider_tous.vente') }}'>
         @csrf
