@@ -2,8 +2,8 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Designation</th>
         <th>Fournisseur</th>
+        <th>Designation</th>
         <th>Categorie</th>
         <th>Quantité</th>
         <th>Prix Unit</th>
@@ -14,8 +14,8 @@
         @foreach($list as $produit)
       <tr>
         <td>{{$produit->id}}</td>
-        <td>{{$produit->designation}}</td>
         <td>{{$produit->fournisseurs->nom_complet}} </td>
+        <td>{{$produit->designation}}</td>
         <td>{{$produit->familles->nom}}</td>
         <td>{{$produit->quantite}}</td>
         <td>{{ceil(ceil($produit->prix_achat + ($produit->prix_achat * $pourcentage->pourcentage / 100)/10)*10)}}</td>
