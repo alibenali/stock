@@ -25,7 +25,7 @@
           </td>
           <td><a href="{{ url('produit/'.$vente->produit_id) }}" target="_blank">{{$vente->produit_id}}</a></td>
           <td>{{$vente->quantite}}</td>
-          <td>{{$vente->prix_total}}</td>
+          <td>{{number_format($vente->prix_total, 0, '.', ' ')l}}</td>
 
         
         </tr>
