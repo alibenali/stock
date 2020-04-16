@@ -33,7 +33,7 @@
       </tbody>
     </table>
 
-        <h3 class="text-center mx-auto d-block mt-2 mb-3"><b>Totale:</b> {{number_format($total, 0, '.', ' ')}}</h3>
+        <h3 class="text-center mx-auto d-block mt-2 mb-3">{{number_format($total, 0, '.', ' ')}}</h3>
 
         <form method="POST" action='{{ route('valider_tous.vente') }}'>
         @csrf
