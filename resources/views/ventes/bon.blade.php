@@ -65,7 +65,8 @@
             <tr>
               <td style="word-wrap: break-word">{{$vente->produit->familles->nom}}</td>
               <td style="word-wrap: break-word">{{$vente->produit->designation}}</td>
-              <td  style="width: 30%">{{$vente->quantite}}</td>
+              <td  style="width: 30%">{{$vente->nbr_boites}}</td>
+
             </tr>
               @endforeach
           </tbody>
