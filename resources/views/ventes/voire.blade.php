@@ -43,7 +43,9 @@
 
 <script type="application/javascript">
 $(document).ready(function() {
-    $('#vente').DataTable();
+    $('#vente').DataTable( {
+        "order": [[ 0, "desc" ]]
+    } );
 } );
 </script>
   @endsection
