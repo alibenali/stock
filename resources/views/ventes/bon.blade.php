@@ -25,6 +25,7 @@
             <tr>
               <th>Produit</th>
               <th>Quantité</th>
+              <th>N.Boites</th>
               <th>P.unité</th>
               <th>P.total</th>
             </tr>
@@ -36,6 +37,7 @@
             <tr>
               <td style="word-wrap: break-word">{{substr($vente->produit->designation,0,31)}}</td>
               <td  style="width: 15%">{{$vente->quantite}}</td>
+              <td  style="width: 15%">{{$vente->nbr_boites}}</td>
               <td  style="width: 15%">{{ceil(ceil($vente->prix_unite)/10)*10}}</td>
               <td  style="width: 20%;word-wrap: break-word">{{ceil(ceil($vente->prix_total)/10)*10}}</td>
             </tr>
