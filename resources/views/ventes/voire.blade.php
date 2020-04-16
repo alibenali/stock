@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+  <h5 class="text-center mb-5">Totale vendue aujourd'hui: <b>{{number_format($total, 0, '.', ' ')}}</b></h5>
   <table class="table table-responsive-sm" id="vente">
       <thead>
         <tr>

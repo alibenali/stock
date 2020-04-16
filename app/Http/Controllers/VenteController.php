@@ -7,6 +7,7 @@ use App\Vente;
 use App\Produit;
 use App\Pourcentage;
 use Auth;
+use Carbon\carbon;
 
 class VenteController extends Controller
 {
@@ -104,7 +105,10 @@ class VenteController extends Controller
     public function voire()
     {
         $ventes = Vente::all();
-        return view('ventes.voire', ['ventes'=> $ventes]);
+        $Todayventes = Vente::whereDate('created_at', Carbon::today())->get();
+        $total = $Todayventes->sum('prix_total');
+
+        return view('ventes.voire', ['ventes'=> $ventes,'total'=>$total]);
     }
 
     public function panier()
