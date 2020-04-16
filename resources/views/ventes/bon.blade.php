@@ -38,15 +38,15 @@
               <td style="word-wrap: break-word">{{substr($vente->produit->designation,0,31)}}</td>
               <td  style="width: 15%">{{$vente->quantite}}</td>
               <td  style="width: 15%">{{$vente->nbr_boites}}</td>
-              <td  style="width: 15%">{{ceil(ceil($vente->prix_unite)/10)*10}}</td>
-              <td  style="width: 20%;word-wrap: break-word">{{ceil(ceil($vente->prix_total)/10)*10}}</td>
+              <td  style="width: 15%">{{number_format(ceil(ceil($vente->prix_unite)/10)*10,0,'.',' ')}}</td>
+              <td  style="width: 20%;word-wrap: break-word">{{number_format(ceil(ceil($vente->prix_total)/10)*10,0,'.',' ')}}</td>
             </tr>
               @endforeach
           </tbody>
         </table>
-        <p class="mt-1 text-center"><b>Total:</b> {{ceil(ceil($total)/10)*10}}</p>
+        <p class="mt-1 text-center"><b>Total:</b> {{number_format(ceil(ceil($total)/10)*10,0,'.',' ')}}</p>
         <p class="mt-1 text-center">{{ \Carbon\Carbon::now('Africa/Algiers') }} <a class="ml-4">Bon N° {{ $vente->id }}</a> </p>
-        <p class="mt-1" style="font-size: 0.7rem;"><b>Remarque:</b> Vérifier votre produit avant de quitter le magasin, Puiseque la maison n'accept plus le changement ou le rembourssement.</p>
+        <p class="mt-1" style="font-size: 0.8rem;"><b>Remarque:</b> Vérifier votre produit avant de quitter le magasin, Puiseque la maison n'accept plus le changement ou le rembourssement.</p>
         
     </div>
     <div class="col-4 border-left">
