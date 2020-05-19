@@ -18,7 +18,7 @@
         <tr>
           <td>
                 @can('annuler', $vente)
-                <form method="POST" action='{{ route('annuler.vente', $vente->id) }}' class="d-inline">
+                <form method="POST" action='{{ route('annuler_panier.vente', $vente->id) }}' class="d-inline">
                   @csrf
                   <button class="btn-danger btn-sm">Annuler</button></form>
                 @endcan
@@ -32,13 +32,16 @@
           @endforeach
       </tbody>
     </table>
-
+    	@if($total != 0)
         <h3 class="text-center mx-auto d-block mt-2 mb-3">{{number_format($total, 0, '.', ' ')}}</h3>
 
         <form method="POST" action='{{ route('valider_tous.vente') }}'>
         @csrf
         <button class="btn-success text-center mx-auto d-block">Valider tous</button>
         </form>
+        @else
+        <h3 class="text-center mx-auto mt-2 mb-3">Panier vide</h3>
+        @endif
 </div>
 
 

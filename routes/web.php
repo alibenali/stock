@@ -47,6 +47,8 @@ Route::get('/ventes/panier', 'VenteController@panier')->name('panier.ventes');
 Route::get('/ajouter/vente/{produit}/{pourcentage}', 'VenteController@ajouter')->name('ajouter.vente');
 Route::post('/inserer/vente/{produit}/{pourcentage}', 'VenteController@inserer')->name('inserer.vente');
 Route::post('/annuler/vente/{produit}/', 'VenteController@annuler')->name('annuler.vente');
+Route::post('/annuler_panier/vente/{produit}/', 'VenteController@annuler_panier')->name('annuler_panier.vente');
+
 Route::post('/valider/vente/{id}/', 'VenteController@valider')->name('valider.vente');
 Route::post('/valider_tous/vente/', 'VenteController@valider_tous')->name('valider_tous.vente');
 Route::get('/ventes/bon', 'VenteController@bon')->name('bon.ventes');

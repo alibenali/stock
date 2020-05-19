@@ -142,6 +142,17 @@ class VenteController extends Controller
         return redirect('voire/ventes')->with('status', 'Vente annulé');
     }
 
+
+    public function annuler_panier($id)
+    {
+        $vente = Vente::find($id);
+        $vente->statut = 'Annulé';
+        $vente->save();
+
+        return redirect('ventes/panier')->with('status', 'Vente annulé');
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      *
