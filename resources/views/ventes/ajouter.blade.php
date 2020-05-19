@@ -60,7 +60,7 @@
                             <label for="prix_unite" class="col-md-4 col-form-label text-md-right">{{ __('Prix unité') }}</label>
 
                             <div class="col-md-6">
-                                <input id="prix_unite" type="number" class="form-control" name="prix_unite" value="{{$produit->prix_achat + ($produit->prix_achat * $pourcentage->pourcentage / 100)}}" readonly required>
+                                <input id="prix_unite" type="number" class="form-control" name="prix_unite" value="{{ceil(ceil($produit->prix_achat + ($produit->prix_achat * $pourcentage->pourcentage / 100))/10)*10}}" readonly required>
                             </div>
                         </div>
 
@@ -68,7 +68,7 @@
                             <label for="prix_total" class="col-md-4 col-form-label text-md-right">{{ __('Prix total') }}</label>
 
                             <div class="col-md-6">
-                                <input id="prix_total" type="number" step="0.01" class="form-control" name="prix_total" value="{{$produit->prix_achat + ($produit->prix_achat * $pourcentage->pourcentage / 100)}}" readonly required>
+                                <input id="prix_total" type="number" step="0.01" class="form-control" name="prix_total" value="{{ceil(ceil($produit->prix_achat + ($produit->prix_achat * $pourcentage->pourcentage / 100))/10)*10}}" readonly required>
                             </div>
                         </div>
 
@@ -141,10 +141,10 @@ $('#quantite').blur(function () {
           $('#nbr_boites').val(newQuantite/{{$produit->colis}});
           $('#div_nbr_boites').removeClass("d-none");
 
-          $('#prix_total').val(newQuantite*{{$produit->prix_achat + ($produit->prix_achat * $pourcentage->pourcentage / 100)}});
+          $('#prix_total').val(newQuantite*{{ceil(ceil($produit->prix_achat + ($produit->prix_achat * $pourcentage->pourcentage / 100))/10)*10}});
 
         }else{
-            $('#prix_total').val(quantite*{{$produit->prix_achat + ($produit->prix_achat * $pourcentage->pourcentage / 100)}});
+            $('#prix_total').val(quantite*{{ceil(ceil($produit->prix_achat + ($produit->prix_achat * $pourcentage->pourcentage / 100))/10)*10}});
         }
         $('#nbr_boites').val(newQuantite/{{$produit->colis}});
         $('#div_nbr_boite').removeClass("d-none");
