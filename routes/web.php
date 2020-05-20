@@ -51,6 +51,7 @@ Route::post('/annuler_panier/vente/{produit}/', 'VenteController@annuler_panier'
 
 Route::post('/valider/vente/{id}/', 'VenteController@valider')->name('valider.vente');
 Route::post('/valider_tous/vente/', 'VenteController@valider_tous')->name('valider_tous.vente');
+Route::post('/imprimer_panier/vente/', 'VenteController@imprimer_panier')->name('imprimer_panier.vente');
 Route::get('/ventes/bon', 'VenteController@bon')->name('bon.ventes');
 
 Route::get('/voire/casses/', 'CasseController@voire')->name('voire.casses');

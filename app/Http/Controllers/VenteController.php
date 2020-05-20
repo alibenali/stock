@@ -31,9 +31,9 @@ class VenteController extends Controller
      */
     public function inserer(Request $request ,$id, $pourcentage)
     {
-        $prix_unite = $request->input('prix_unite');
+        $prix_unite = ceil(ceil($request->input('prix_unite'))/10)*10;
         $prix_total = $prix_unite * $request->input('new_quantite');
-        $prix_total = $prix_total;
+        $prix_total = ceil(ceil($prix_total)/10)*10;
 
         Vente::create([
             'produit_id' => $id,
@@ -77,6 +77,12 @@ class VenteController extends Controller
         
         return view('ventes.bon', ['ventes' => $ventes]);
         
+    }
+
+    public function imprimer_panier(){
+
+        $ventes = Vente::where('statut', 'panier')->get();
+        return view('ventes.bon', ['ventes' => $ventes]);
     }
 
     public function valider($id)

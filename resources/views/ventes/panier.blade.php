@@ -34,11 +34,17 @@
     </table>
     	@if($total != 0)
         <h3 class="text-center mx-auto d-block mt-2 mb-3">{{number_format($total, 0, '.', ' ')}}</h3>
-
-        <form method="POST" action='{{ route('valider_tous.vente') }}'>
+        <div class="text-center mx-auto">
+        <form method="POST" action='{{ route('valider_tous.vente') }}' class="d-inline">
         @csrf
-        <button class="btn-success text-center mx-auto d-block">Valider tous</button>
+        <button class="btn-success  d-inline">Valider tous</button>
         </form>
+
+        <form method="POST" action='{{ route('imprimer_panier.vente') }}' class="d-inline">
+        @csrf
+        <button class="btn-seconder d-inline">Préfacturation</button>
+        </form>
+    	</div>
         @else
         <h3 class="text-center mx-auto mt-2 mb-3">Panier vide</h3>
         @endif
