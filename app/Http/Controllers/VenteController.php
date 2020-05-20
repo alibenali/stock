@@ -79,6 +79,12 @@ class VenteController extends Controller
         
     }
 
+    public function imprimer_panier(){
+
+        $ventes = Vente::where('statut', 'panier')->get();
+        return view('ventes.bon', ['ventes' => $ventes]);
+    }
+
     public function valider($id)
     {
         $vente = Vente::find($id);
