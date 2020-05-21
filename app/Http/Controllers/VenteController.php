@@ -112,7 +112,7 @@ class VenteController extends Controller
     public function voire()
     {
         $ventes = Vente::all();
-        $Todayventes = Vente::whereDate('created_at', Carbon::today())->get();
+        $Todayventes = Vente::whereDate('created_at', Carbon::today())->where('status', 'vendu')->get();
         $total = $Todayventes->sum('prix_total');
 
         return view('ventes.voire', ['ventes'=> $ventes,'total'=>$total]);
