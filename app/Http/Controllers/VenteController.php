@@ -82,6 +82,7 @@ class VenteController extends Controller
     public function imprimer_panier(){
 
         $ventes = Vente::where('statut', 'panier')->get();
+        Vente::where('statut', 'panier')->update(['statut' => 'pre facturation']);
         return view('ventes.bon', ['ventes' => $ventes]);
     }
 
