@@ -27,7 +27,7 @@
           <td>{{number_format($vente->prix_unite, 0, '.', ' ')}}</td>
           <td>{{number_format($vente->prix_total, 0, '.', ' ')}}</td>
           <td>{{$vente->created_at}}</td>
-          <td>{{$vente->statut}}</td>
+          <td class="text-@if($vente->statut == 'pre facturation')success @endif">{{$vente->statut}}</td>
 
         <td>
           @can('annuler', $vente)

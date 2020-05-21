@@ -23,7 +23,7 @@ class VentePolicy
 
     public function annuler(User $user, Vente $vente)
     {
-        return $vente->statut !== 'Annulé';
+        return $vente->statut !== 'Annulé' AND $vente->statut !== 'pre facturation';
     }
 
     public function valider(User $user, Vente $vente)
