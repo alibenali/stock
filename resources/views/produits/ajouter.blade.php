@@ -80,7 +80,15 @@
                             <div class="col-md-6">
                                 <input id="prix_achat" type="number" step="0.01" class="form-control" name="prix_achat" required>
                             </div>
-                        </div>  
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="pourcentage" class="col-md-4 col-form-label text-md-right">{{ __('Pourcentage') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="pourcentage" type="number" step="0.01" class="form-control" name="pourcentage" value="0">
+                            </div>
+                        </div>    
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
