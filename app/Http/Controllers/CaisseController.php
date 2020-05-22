@@ -28,8 +28,26 @@ class CaisseController extends Controller
 
     	$transitions = Caisse::all();
         $ventes = Vente::all();
+        $montant = $request->input('montant');
 
-		$caisse =  $transitions->sum('caisse.montant') + $ventes->sum('ventes.prix_totale');
+        $caisse = 0;
+		foreach ($ventes as $vente) {
+            $caisse = $caisse + $vente->prix_total;
+        }
+
+        foreach ($transitions as $transition) {
+            if($transition->type == 'revenue'){
+                $caisse = ceil($caisse + $montant);
+            }else{
+                $caisse = ceil($caisse - $montant);
+            }
+        }
+
+        if($request->input('type') == 'depense'){
+            $caisse_apres = $caisse - $montant;
+        }else{
+            $caisse_apres = $caisse + $montant;
+        }
 
         Caisse::create([
             'objectif' => $request->input('objectif'),
@@ -37,7 +55,7 @@ class CaisseController extends Controller
             'montant' => $request->input('montant'),
             'responsable_id' => Auth::id(),
             'caisse_avant' => $caisse,
-            'caisse_apres' => $caisse + $request->input('montant'),
+            'caisse_apres' => $caisse_apres,
         ]);
 
         return redirect('voire/caisse')->with('status', 'Caisse a été mis a jour');
