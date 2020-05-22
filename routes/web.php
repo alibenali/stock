@@ -36,6 +36,11 @@ Route::post('/inserer/famille', 'FamilleController@inserer')->name('inserer.fami
 Route::post('/desactiver/famille/{id}', 'FamilleController@desactiver')->name('desactiver.famille');
 Route::post('/activer/famille/{id}', 'FamilleController@activer')->name('activer.famille');
 
+Route::get('/voire/caisse', 'CaisseController@voire')->name('voire.caisse');
+Route::get('/ajouter/transition', 'CaisseController@ajouter')->name('ajouter.transition');
+Route::post('/inserer/transition', 'CaisseController@inserer')->name('inserer.transition');
+
+
 Route::get('/voire/pourcentages', 'PourcentageController@voire')->name('voire.pourcentages');
 Route::get('/ajouter/pourcentage', 'PourcentageController@ajouter')->name('ajouter.pourcentage');
 Route::post('/inserer/pourcentage', 'PourcentageController@inserer')->name('inserer.pourcentage');
