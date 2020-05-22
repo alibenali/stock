@@ -100,6 +100,7 @@ class ProduitController extends Controller
             'colis' => $request->input('colis'),
             'nbr_colis' => $request->input('nbr_colis'),
             'prix_achat' => $request->input('prix_achat'),
+            'pourcentage' => $request->input('pourcentage'),
         ]);
 
         Achat::create([

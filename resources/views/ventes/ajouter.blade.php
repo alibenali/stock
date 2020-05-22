@@ -1,7 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-@PHP($prix_unit = ceil(ceil($produit->prix_achat + ($produit->prix_achat * $pourcentage->pourcentage / 100))/10)*10)
+
+@php
+if($produit->pourcentage != 0){
+    $lepourcentage = $produit->pourcentage;
+}else{
+    $lepourcentage = $pourcentage->pourcentage;
+}  
+@endphp
+
+@PHP($prix_unit = ceil(ceil($produit->prix_achat + ($produit->prix_achat * $lepourcentage / 100))/10)*10)
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-12">
