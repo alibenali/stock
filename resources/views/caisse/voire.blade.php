@@ -27,15 +27,6 @@
           <td>{{$transition->caisse_avant}}</td>
           <td>{{$transition->caisse_apres}}</td>
 
-
-        <td>
-            @can('annuler')
-           <form method="POST" action='{{ route('annuler.transition', $transition->id) }}'>
-            @csrf
-            <button class="btn-danger">Annuler</button>
-          </form>
-            @endcan
-          </td>
         </tr>
           @endforeach
       </tbody>
@@ -44,7 +35,9 @@
 
 <script type="application/javascript">
 $(document).ready(function() {
-    $('#caisse').DataTable();
+    $('#caisse').DataTable( {
+        "order": [[ 0, "desc" ]]
+    } );
 } );
 </script>
   @endsection
