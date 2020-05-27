@@ -14,7 +14,9 @@ class CaisseController extends Controller
     
     public function ajouter()
     {
-        return view('caisse.ajouter');
+        $objectifs = Caisse::select('objectif')->selectRaw('count(objectif) as objectifs')->groupBy('objectif')->orderBy('objectifs', 'desc');
+
+        return view('caisse.ajouter', ['objectifs' => $objectifs]);
     }
 
     /**

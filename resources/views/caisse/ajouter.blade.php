@@ -20,7 +20,12 @@
                             <label for="objectif" class="col-md-4 col-form-label text-md-right">{{ __('Objectif de la transition') }}</label>
 
                             <div class="col-md-6">
-                                <input id="objectif" type="text" class="form-control" name="objectif" required>
+                                <input id="objectif" list="objectifs" type="text" class="form-control" name="objectif" required>
+                                <datalist id="objectifs">
+                                    @foreach($objectifs as $objectif)
+                                    <option value="{{$objectif->objectif}}">
+                                    @endforeach
+                                </datalist>
                             </div>
                         </div>
 
