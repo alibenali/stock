@@ -14,7 +14,7 @@
 
 <div class="container-fluid" id="toPrint">
   <div class="row">
-    <div class="col-8">
+    <div class="@if(isset($prefacturation)) col-12 @else col-8 @endif">
       <h1 style="font-size: 1.25rem;" class="mb-1 text-center"><b>Bienvenue chez Ayham ceramique</b></h1>
       <h1 style="font-size: 0.8rem;" class="mb-1 text-center"><b>Page facebook: Ayham ceramique</b></h1>
       
@@ -49,7 +49,7 @@
         <p class="mt-1" style="font-size: 0.8rem;"><b>Remarque:</b> Vérifier votre produit avant de quitter le magasin, Puiseque la maison n'accept plus le changement ou le rembourssement.</p>
         
     </div>
-    <div class="col-4 border-left">
+    <div class="col-4 border-left @if(isset($prefacturation)) d-none @endif">
       <table class="table w-100" id="vente">
           <thead>
             <tr>

@@ -83,7 +83,7 @@ class VenteController extends Controller
 
         $ventes = Vente::where('statut', 'panier')->get();
         Vente::where('statut', 'panier')->update(['statut' => 'pre facturation']);
-        return view('ventes.bon', ['ventes' => $ventes]);
+        return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true]);
     }
 
     public function valider($id)
