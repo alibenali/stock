@@ -64,7 +64,7 @@ class CaisseController extends Controller
     public function voire()
     {
         $transitions = Caisse::all();
-        $ventes = Vente::all();
+        $ventes = Vente::where('statut','vendu')->get();
 		$caisse =  0;
 
 		foreach ($ventes as $vente) {
