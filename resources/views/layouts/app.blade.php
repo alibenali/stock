@@ -46,6 +46,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('voire.ventes') }}">{{ __('Les ventes') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('voire.caisse') }}">La caisse</a>
+                        </li>
+
                         
                     </ul>
                     @endif
@@ -77,7 +81,6 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('voire_tous.produit') }}">Les produits</a>
                                 <a class="dropdown-item" href="{{ route('voire.achats') }}">Les achats</a>
-                                <a class="dropdown-item" href="{{ route('voire.caisse') }}">La caisse</a>
                                 </div>
                             </li>
                             @endif
