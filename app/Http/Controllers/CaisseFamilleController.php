@@ -20,6 +20,6 @@ class CaisseFamilleController extends Controller
 
     	$caisseFamille->save();
 
-		return view('caisseFamille.ajouter');
+		return redirect('voire/caisse');
     }
 }
