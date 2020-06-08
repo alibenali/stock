@@ -17,15 +17,27 @@
                     <form method="POST" action="{{ route('inserer.transition') }}">
                         @csrf
                         <div class="form-group row">
+                            <label for="famille" class="col-md-4 col-form-label text-md-right">{{ __('La famille') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="famille" type="text" class="form-control" name="famille" required>
+                                    @if($id!=0)
+                                        <option value="{{$id}}">Deja choisi</option>
+                                    @else
+
+                                    @foreach($familles as $famille)
+                                    <option value="{{$famille->id}}">{{$famille->nom}}</option>
+                                    @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="objectif" class="col-md-4 col-form-label text-md-right">{{ __('Objectif de la transition') }}</label>
 
                             <div class="col-md-6">
-                                <input id="objectif" list="objectifs" type="text" class="form-control" name="objectif" required>
-                                <datalist id="objectifs">
-                                    @foreach($objectifs as $objectif)
-                                    <option value="{{$objectif->objectif}}">
-                                    @endforeach
-                                </datalist>
+                                <textarea id="objectif" class="form-control" name="objectif" required></textarea> 
                             </div>
                         </div>
 
@@ -45,7 +57,7 @@
                             <label for="montant" class="col-md-4 col-form-label text-md-right">{{ __('Le montant') }}</label>
 
                             <div class="col-md-6">
-                                <input id="montant" type="text" class="form-control" name="montant" required>
+                                <input id="montant" type="number" class="form-control" name="montant" required>
                             </div>
                         </div>
 

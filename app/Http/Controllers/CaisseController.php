@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Caisse;
+use App\CaisseFamille;
 use App\Vente;
 use Auth;
 
@@ -12,11 +13,11 @@ class CaisseController extends Controller
 
 
     
-    public function ajouter()
+    public function ajouter($id=0)
     {
-        $objectifs = Caisse::select('objectif')->selectRaw('count(objectif) as objectifs')->groupBy('objectif')->orderBy('objectifs', 'desc');
+        $familles = CaisseFamille::all();
 
-        return view('caisse.ajouter', ['objectifs' => $objectifs]);
+        return view('caisse.ajouter', ['familles'=>$familles,'id'=>$id]);
     }
 
     /**
@@ -33,6 +34,9 @@ class CaisseController extends Controller
         $montant = $request->input('montant');
 
         $caisse = 0;
+        $famille = CaisseFamille::where('id', $request->input('famille'))->first();
+        $famille_totale = $famille->totale;
+
 		foreach ($ventes as $vente) {
             $caisse = $caisse + $vente->prix_total;
         }
@@ -47,11 +51,15 @@ class CaisseController extends Controller
 
         if($request->input('type') == 'depense'){
             $caisse_apres = $caisse - $montant;
+            $famille_totale = ceil($famille_totale - $montant);
+
         }else{
             $caisse_apres = $caisse + $montant;
+            $famille_totale = ceil($famille_totale + $montant);
         }
 
         Caisse::create([
+            'famille_id' => $request->input('famille'),
             'objectif' => $request->input('objectif'),
             'type' => $request->input('type'),
             'montant' => $request->input('montant'),
@@ -60,12 +68,15 @@ class CaisseController extends Controller
             'caisse_apres' => $caisse_apres,
         ]);
 
+        $famille->totale = $famille_totale;
+        $famille->save();
+
         return redirect('voire/caisse')->with('status', 'Caisse a été mis a jour');
     }
 
-    public function voire()
+    public function voireTransitions($famille)
     {
-        $transitions = Caisse::all();
+        $transitions = Caisse::where('famille_id',$famille)->get();
         $ventes = Vente::where('statut','vendu')->get();
 		$caisse =  0;
 
@@ -81,7 +92,28 @@ class CaisseController extends Controller
 			}
 		}
 
-        return view('caisse.voire', ['transitions' => $transitions, 'caisse' => $caisse]);
+        return view('caisse.voireTransitions', ['transitions' => $transitions, 'caisse' => $caisse]);
+    }
+
+    public function voire()
+    {
+        $familles = CaisseFamille::all();
+        $transitions = Caisse::all();
+        $ventes = Vente::where('statut','vendu')->get();
+        $caisse =  0;
+
+        foreach ($ventes as $vente) {
+            $caisse = $caisse + $vente->prix_total;
+        }
+
+        foreach ($transitions as $transition) {
+            if($transition->type == 'revenue'){
+                $caisse = ceil($caisse + $transition->montant);
+            }else{
+                $caisse = ceil($caisse - $transition->montant);
+            }
+        }
+        return view('caisse.voire', ['familles' => $familles, 'caisse' => $caisse]);
     }
 
 
