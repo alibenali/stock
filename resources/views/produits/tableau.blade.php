@@ -34,7 +34,9 @@
 
         <td>
           <button class="btn-success" onclick="window.open('{{ route('ajouter.vente', [$produit->id, $pourcentage->id]) }}', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=80,left=500,width=450,height=600');">Vendre</button>
+          @can('modifier', $produit)
           <button class="btn-primary mt-1" onclick="window.location.assign('{{ route('modifier.produit', $produit->id) }}')">Modifier</button>
+          @endcan
         </td>
       </tr>
         @endforeach

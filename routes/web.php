@@ -23,8 +23,8 @@ Route::get('/produits', 'ProduitController@voire_tous')->name('voire_tous.produi
 Route::get('/ajouter/produit', 'ProduitController@ajouter')->name('ajouter.produit');
 Route::post('/inserer/produit', 'ProduitController@inserer')->name('inserer.produit');
 Route::get('/fetch/produit', 'ProduitController@fetch')->name('fetch.produit');
-Route::get('/modifier/produit/{id}', 'ProduitController@modifier')->name('modifier.produit');
-Route::put('/modifier/produit/{id}', 'ProduitController@maj')->name('maj.produit');
+Route::get('/modifier/produit/{id}', 'ProduitController@modifier')->name('modifier.produit')->middleware('can:modifier,App\Produit');
+Route::put('/modifier/produit/{id}', 'ProduitController@maj')->name('maj.produit')->middleware('can:modifier,App\Produit');
 
 Route::get('/voire/fournisseurs', 'FournisseurController@voire')->name('voire.fournisseurs');
 Route::get('/ajouter/fournisseur', 'FournisseurController@ajouter')->name('ajouter.fournisseur');
@@ -54,7 +54,7 @@ Route::get('/voire/ventes/', 'VenteController@voire')->name('voire.ventes');
 Route::get('/ventes/panier', 'VenteController@panier')->name('panier.ventes');
 Route::get('/ajouter/vente/{produit}/{pourcentage}', 'VenteController@ajouter')->name('ajouter.vente');
 Route::post('/inserer/vente/{produit}/{pourcentage}', 'VenteController@inserer')->name('inserer.vente');
-Route::post('/annuler/vente/{produit}/', 'VenteController@annuler')->name('annuler.vente');
+Route::post('/annuler/vente/{produit}/', 'VenteController@annuler')->name('annuler.vente')->middleware('can:annuler,App\Vente');
 Route::post('/annuler_panier/vente/{produit}/', 'VenteController@annuler_panier')->name('annuler_panier.vente');
 
 Route::post('/valider/vente/{id}/', 'VenteController@valider')->name('valider.vente');
