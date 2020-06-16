@@ -55,7 +55,7 @@ Route::get('/ventes/panier', 'VenteController@panier')->name('panier.ventes');
 Route::get('/ventes/panier/{bon_id}', 'VenteController@panier_bon')->name('panier.ventes');
 Route::get('/ajouter/vente/{produit}/{pourcentage}', 'VenteController@ajouter')->name('ajouter.vente');
 Route::post('/inserer/vente/{produit}/{pourcentage}', 'VenteController@inserer')->name('inserer.vente');
-Route::post('/annuler/vente/{produit}/', 'VenteController@annuler')->name('annuler.vente')->middleware('can:annuler,App\Vente');
+Route::post('/annuler/vente/{produit}/', 'VenteController@annuler')->name('annuler.vente')->middleware('can:isAdmin,App\Vente');
 Route::post('/annuler_panier/vente/{produit}/', 'VenteController@annuler_panier')->name('annuler_panier.vente');
 
 Route::post('/valider/vente/{id}/', 'VenteController@valider')->name('valider.vente');

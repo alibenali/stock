@@ -203,13 +203,20 @@ class VenteController extends Controller
     public function annuler($id)
     {
         $vente = Vente::find($id);
+        if($vente->statut == 'vendu' OR $vente->statut == 'verssement terminé'){
+            $produit = Produit::find($vente->produit_id);
+            $produit->quantite = $produit->quantite + $vente->quantite;
+            $produit->nbr_colis = $produit->quantite / $produit->colis;
+            $produit->save(); 
+            $vente->statut = 'Annulé';
+            $vente->save();
+            Vente::whereBetween('bon_id', [$vente->bon_id - 5, $vente->bon_id + 5])->update(['statut' => 'Annulé']);
 
-        $produit = Produit::find($vente->produit_id);
-        $produit->quantite = $produit->quantite + $vente->quantite;
-        $produit->nbr_colis = $produit->quantite / $produit->colis;
-        $produit->save(); 
-        $vente->statut = 'Annulé';
-        $vente->save();
+        }elseif($vente->statut == 'verssement'){
+            $produit = Produit::find($vente->produit_id);
+            $vente->statut = 'Annulé';
+            $vente->save();
+        }
 
         return redirect('voire/ventes')->with('status', 'Vente annulé');
     }

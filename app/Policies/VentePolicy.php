@@ -21,6 +21,11 @@ class VentePolicy
     }
 
 
+    public function isAdmin(User $user)
+    {
+        return Auth::user()->role == 'admin';
+    }
+
     public function annuler(User $user, Vente $vente)
     {
         return $vente->statut !== 'Annulé' AND $vente->statut !== 'pre facturation' AND Auth::user()->role == 'admin';
