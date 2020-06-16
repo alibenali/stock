@@ -100,10 +100,15 @@ class CaisseController extends Controller
         $familles = CaisseFamille::all();
         $transitions = Caisse::all();
         $ventes = Vente::where('statut','vendu')->get();
+        $verssements = Vente::where('statut','verssement')->orWhere('statut', 'verssement terminé')->get();
         $caisse =  0;
 
         foreach ($ventes as $vente) {
             $caisse = $caisse + $vente->prix_total;
+        }
+
+        foreach ($verssements as $verssement) {
+            $caisse = $caisse + $verssement->verssement;
         }
 
         foreach ($transitions as $transition) {

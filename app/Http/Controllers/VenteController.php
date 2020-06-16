@@ -72,11 +72,63 @@ class VenteController extends Controller
             $produit->save();
         }
         
-
-        Vente::where('statut', 'panier')->update(['statut' => 'vendu']);
+        $random = rand(9999999999,9999999999999999);
+        Vente::where('statut', 'panier')->update(['statut' => 'vendu', 'bon_id' => $random]);
         
         return view('ventes.bon', ['ventes' => $ventes]);
         
+    }
+
+    public function verssement(Request $request)
+    {
+        $ventes = Vente::where('statut', 'panier')->get();
+        foreach($ventes as $vente){
+            $produit = Produit::find($vente->produit_id);
+            //$produit->quantite = $produit->quantite - $vente->quantite;
+            //$produit->nbr_colis = $produit->quantite / $produit->colis;
+            if($produit->nbr_colis != $produit->quantite){
+                //$produit->nbr_colis = $produit->quantite / $produit->colis;
+            }
+            $produit->save();
+        }
+        
+        $random = rand(9999999999,9999999999999999);
+        $verssement = ceil($request->input('montant') / $ventes->count());
+
+        Vente::where('statut', 'panier')->update(['statut' => 'verssement', 'bon_id' => $random, 'verssement' => $verssement]);
+                
+        return view('ventes.bon', ['ventes' => $ventes]);
+        
+    }
+
+    public function ajouter_verssement(Request $request,$bon_id){
+        $ventes = Vente::where('bon_id', $bon_id)->get();
+        $verssement = ceil($request->input('montant') / $ventes->count());
+        foreach($ventes as $vente){
+            $nouveauVerssement = $vente->replicate();
+            $nouveauVerssement->verssement = $verssement;
+            $nouveauVerssement->bon_id = $nouveauVerssement->bon_id+1;
+            $nouveauVerssement->save();
+
+        }
+        $min = $bon_id-5;
+        $verssement = Vente::whereBetween('bon_id', [$min, $bon_id])->sum('ventes.verssement');
+        $prix_total = Vente::where('bon_id', $bon_id)->sum('ventes.prix_total');
+        if($verssement+ceil($request->input('montant')) == $prix_total){
+            Vente::whereBetween('bon_id', [$min, $bon_id+5])->update(['statut' => 'verssement terminé']);
+            $ventes = Vente::where('bon_id', $bon_id)->get();
+            foreach($ventes as $vente){
+                $produit = Produit::find($vente->produit_id);
+                $produit->quantite = $produit->quantite - $vente->quantite;
+                $produit->nbr_colis = $produit->quantite / $produit->colis;
+                if($produit->nbr_colis != $produit->quantite){
+                    $produit->nbr_colis = $produit->quantite / $produit->colis;
+                }
+                $produit->save();
+        }
+        }
+
+        return view('ventes.bon', ['ventes' => $ventes]);
     }
 
     public function imprimer_panier(){
@@ -113,15 +165,28 @@ class VenteController extends Controller
     {
         $ventes = Vente::all();
         $Todayventes = Vente::whereDate('created_at', Carbon::today())->where('statut', 'vendu')->get();
-        $total = $Todayventes->sum('prix_total');
+        $TodayVerssement = Vente::whereDate('created_at', Carbon::today())->where('statut', 'verssement')->orWhere('statut', 'verssement terminé')->get();
 
-        return view('ventes.voire', ['ventes'=> $ventes,'total'=>$total]);
+        $total = $Todayventes->sum('prix_total');
+        $totalVerssement = $TodayVerssement->sum('verssement');
+
+        return view('ventes.voire', ['ventes'=> $ventes,'total'=>$total, 'totalVerssement' => $totalVerssement]);
     }
 
     public function panier()
     {
         $ventes = Vente::where('statut', 'panier')->get();
         return view('ventes.panier', ['ventes'=> $ventes]);
+    }
+
+
+
+    public function panier_bon($bon_id)
+    {
+        $ventes = Vente::where('bon_id', $bon_id)->get();
+        $min = $bon_id-5;
+        $verssement = Vente::whereBetween('bon_id', [$min, $bon_id])->sum('ventes.verssement');
+        return view('ventes.panier_verssement', ['ventes'=> $ventes, 'bon_id'=> $bon_id, 'total_verse' =>$verssement]);
     }
 
     public function bon()

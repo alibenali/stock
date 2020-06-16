@@ -52,6 +52,7 @@ Route::post('/activer/pourcentage/{id}', 'PourcentageController@activer')->name(
 
 Route::get('/voire/ventes/', 'VenteController@voire')->name('voire.ventes');
 Route::get('/ventes/panier', 'VenteController@panier')->name('panier.ventes');
+Route::get('/ventes/panier/{bon_id}', 'VenteController@panier_bon')->name('panier.ventes');
 Route::get('/ajouter/vente/{produit}/{pourcentage}', 'VenteController@ajouter')->name('ajouter.vente');
 Route::post('/inserer/vente/{produit}/{pourcentage}', 'VenteController@inserer')->name('inserer.vente');
 Route::post('/annuler/vente/{produit}/', 'VenteController@annuler')->name('annuler.vente')->middleware('can:annuler,App\Vente');
@@ -59,6 +60,10 @@ Route::post('/annuler_panier/vente/{produit}/', 'VenteController@annuler_panier'
 
 Route::post('/valider/vente/{id}/', 'VenteController@valider')->name('valider.vente');
 Route::post('/valider_tous/vente/', 'VenteController@valider_tous')->name('valider_tous.vente');
+Route::post('/ajouter/verssement/vente/', 'VenteController@verssement_ajouter')->name('verssement_ajouter.vente');
+Route::post('/verssement/ajouter/vente/{bon_id}', 'VenteController@ajouter_verssement')->name('ajouter_verssement.vente');
+
+Route::post('/verssement/vente/', 'VenteController@verssement')->name('verssement.vente');
 Route::post('/imprimer_panier/vente/', 'VenteController@imprimer_panier')->name('imprimer_panier.vente');
 Route::get('/ventes/bon', 'VenteController@bon')->name('bon.ventes');
 
