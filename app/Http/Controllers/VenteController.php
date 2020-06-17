@@ -75,7 +75,7 @@ class VenteController extends Controller
         $random = rand(9999999999,9999999999999999);
         Vente::where('statut', 'panier')->update(['statut' => 'vendu', 'bon_id' => $random]);
         
-        return view('ventes.bon', ['ventes' => $ventes]);
+        return view('ventes.bon', ['ventes' => $ventes, 'bon' =>$random]);
         
     }
 
@@ -95,15 +95,15 @@ class VenteController extends Controller
         $random = rand(9999999999,9999999999999999);
         $verssement = ceil($request->input('montant') / $ventes->count());
 
-        Vente::where('statut', 'panier')->update(['statut' => 'verssement', 'bon_id' => $random, 'verssement' => $verssement]);
+        Vente::where('statut', 'panier')->update(['statut' => 'verssement', 'bon_id' => $random, 'verssement' => $verssement, 'bon_id' => $random]);
                 
         $verssement = Vente::whereBetween('bon_id', [$random-5, $random+5])->sum('ventes.verssement');
-        return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true, 'verssement' => $verssement]);
+        return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true, 'verssement' => $verssement, 'bon' => $random]);
         
     }
 
     public function ajouter_verssement(Request $request,$bon_id){
-        $ventes = Vente::where('bon_id', $bon_id)->get();
+        $ventes = Vente::where('bon_id', $bon_id)->where('statut', 'verssement')->get();
         $verssement = ceil($request->input('montant') / $ventes->count());
         foreach($ventes as $vente){
             $nouveauVerssement = $vente->replicate();
@@ -112,11 +112,12 @@ class VenteController extends Controller
             $nouveauVerssement->save();
 
         }
-        $min = $bon_id-5;
-        $verssement = Vente::whereBetween('bon_id', [$min, $bon_id])->sum('ventes.verssement');
+        $min = $vente->bon_id - 5;
+        $max = $vente->bon_id + 5;
+        $verssement = Vente::whereBetween('bon_id', [$min, $max])->sum('ventes.verssement');
         $prix_total = Vente::where('bon_id', $bon_id)->sum('ventes.prix_total');
-        if($verssement+ceil($request->input('montant')) == $prix_total){
-            Vente::whereBetween('bon_id', [$min, $bon_id+5])->update(['statut' => 'verssement terminé']);
+        if($verssement == $prix_total){
+            Vente::whereBetween('bon_id', [$min, $max])->update(['statut' => 'verssement terminé']);
             $ventes = Vente::where('bon_id', $bon_id)->get();
             foreach($ventes as $vente){
                 $produit = Produit::find($vente->produit_id);
@@ -129,7 +130,7 @@ class VenteController extends Controller
         }
         }
         $verssement = Vente::whereBetween('bon_id', [$bon_id-5, $bon_id+5])->sum('ventes.verssement');
-        return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true, 'verssement' => $verssement]);
+        return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true, 'verssement' => $verssement, 'bon' => $bon_id+1]);
     }
 
     public function imprimer_panier(){
@@ -137,7 +138,7 @@ class VenteController extends Controller
         $ventes = Vente::where('statut', 'panier')->get();
         $random = rand(9999999999,9999999999999999);
         Vente::where('statut', 'panier')->update(['statut' => 'pre facturation', 'bon_id' => $random]);
-        return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true]);
+        return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true, 'bon' => $random]);
     }
 
     public function valider($id)
@@ -188,9 +189,9 @@ class VenteController extends Controller
 
     public function panier_bon($bon_id)
     {
-        $ventes = Vente::where('bon_id', $bon_id)->get();
+        $ventes = Vente::where('bon_id', $bon_id)->where('statut', 'verssement')->get();
         $min = $bon_id-5;
-        $verssement = Vente::whereBetween('bon_id', [$min, $bon_id])->sum('ventes.verssement');
+        $verssement = Vente::whereBetween('bon_id', [$min, $bon_id+5])->where('statut', 'verssement')->sum('ventes.verssement');
         return view('ventes.panier_verssement', ['ventes'=> $ventes, 'bon_id'=> $bon_id, 'total_verse' =>$verssement]);
     }
 
@@ -208,6 +209,9 @@ class VenteController extends Controller
     public function annuler($id)
     {
         $vente = Vente::find($id);
+        $min = $vente->bon_id - 5;
+        $max = $vente->bon_id + 5;
+
         if($vente->statut == 'vendu' OR $vente->statut == 'verssement terminé'){
             $produit = Produit::find($vente->produit_id);
             $produit->quantite = $produit->quantite + $vente->quantite;
@@ -215,7 +219,8 @@ class VenteController extends Controller
             $produit->save(); 
             $vente->statut = 'Annulé';
             $vente->save();
-            Vente::whereBetween('bon_id', [$vente->bon_id - 5, $vente->bon_id + 5])->update(['statut' => 'Annulé']);
+
+            Vente::whereBetween('bon_id', [$min, $max])->update(['statut' => 'Annulé']);
 
         }elseif($vente->statut == 'verssement'){
             $produit = Produit::find($vente->produit_id);
