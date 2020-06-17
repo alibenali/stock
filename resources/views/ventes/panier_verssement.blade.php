@@ -36,6 +36,12 @@
     </table>
     	@if($total != 0)
         <h3 class="text-center mx-auto d-block mt-2 mb-3">Totale: {{number_format($total, 0, '.', ' ')}}</h3>
+                @else
+        <h3 class="text-center mx-auto mt-2 mb-3">Panier vide</h3>
+        @endif
+
+      @if($total_verse != 0 AND $total_verse < $total)
+
         <h3 class="text-center mx-auto d-block mt-2 mb-3">Totale Versé: {{number_format($total_verse, 0, '.', ' ')}}</h3>
         <div class="text-center mx-auto">
         @if(number_format($total, 0, '.', ' ') > number_format($verssement, 0, '.', ' '))
@@ -45,21 +51,27 @@
         <button class="btn-seconder d-inline">Ajouter Verssement</button>
         </form>
     	  @endif
-      </div>
-        @else
-        <h3 class="text-center mx-auto mt-2 mb-3">Panier vide</h3>
         @endif
+      </div>
+
 </div>
 
 <script type="text/javascript">
   function verssement(){
   let montant = prompt('Montant du Verssement');
-  let confirmation = confirm('Vous voulez faire un verssement de '+ montant + 'da Vous ne pouvez plus annuler cela');
-  
-  if(montant > 0 && confirmation == true){
-    document.getElementById('montant').value = montant;
-    return true;
+  if(montant <= {{$total - $total_verse}}){
+    let confirmation = confirm('Vous voulez faire un verssement de '+ montant + 'da Vous ne pouvez plus annuler cela');
+      if(montant > 0 && confirmation == true){
+        document.getElementById('montant').value = montant;
+        return true;
+      }
+
+  }else{
+    alert('Veuillez insérer un montant inférieur ou égal au prix total');
+    return false;
   }
+  
+
   return false;
 
   }

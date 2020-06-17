@@ -28,6 +28,9 @@ class VentePolicy
 
     public function annuler(User $user, Vente $vente)
     {
+        if($vente->statut == 'panier'){
+            return true;
+        }
         return $vente->statut !== 'Annulé' AND $vente->statut !== 'pre facturation' AND Auth::user()->role == 'admin';
     }
 

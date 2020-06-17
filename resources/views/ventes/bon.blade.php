@@ -44,8 +44,14 @@
               @endforeach
           </tbody>
         </table>
-        <p class="mt-1 text-center"><b>Total:</b> {{number_format(ceil(ceil($total)/10)*10,0,'.',' ')}}</p>
-        <p class="mt-1 text-center">{{ \Carbon\Carbon::now('Africa/Algiers') }} <a class="ml-4">Bon N° {{ $vente->id }}</a> </p>
+        <p class="mt-1 text-center"><b>Total:</b> {{number_format(ceil(ceil($total)/10)*10,0,'.',' ')}} da</p>
+        @php
+        if(isset($verssement)){
+        echo '<h3 class="mt-1 text-center"><b>Total versé:</b> '.number_format(ceil(ceil($verssement)/10)*10,0,'.',' '). ' da</h3>';
+        }
+
+        @endphp
+        <p class="mt-1 text-center">{{ \Carbon\Carbon::now('Africa/Algiers') }} <a class="ml-4">Bon N° {{ $vente->bon_id }}</a> </p>
         <p class="mt-1" style="font-size: 0.8rem;"><b>Remarque:</b> Vérifier votre produit avant de quitter le magasin, Puiseque la maison n'accept plus le changement ou le rembourssement.</p>
         
     </div>

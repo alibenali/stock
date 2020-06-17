@@ -97,7 +97,8 @@ class VenteController extends Controller
 
         Vente::where('statut', 'panier')->update(['statut' => 'verssement', 'bon_id' => $random, 'verssement' => $verssement]);
                 
-        return view('ventes.bon', ['ventes' => $ventes]);
+        $verssement = Vente::whereBetween('bon_id', [$random-5, $random+5])->sum('ventes.verssement');
+        return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true, 'verssement' => $verssement]);
         
     }
 
@@ -127,14 +128,15 @@ class VenteController extends Controller
                 $produit->save();
         }
         }
-
-        return view('ventes.bon', ['ventes' => $ventes]);
+        $verssement = Vente::whereBetween('bon_id', [$bon_id-5, $bon_id+5])->sum('ventes.verssement');
+        return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true, 'verssement' => $verssement]);
     }
 
     public function imprimer_panier(){
 
         $ventes = Vente::where('statut', 'panier')->get();
-        Vente::where('statut', 'panier')->update(['statut' => 'pre facturation']);
+        $random = rand(9999999999,9999999999999999);
+        Vente::where('statut', 'panier')->update(['statut' => 'pre facturation', 'bon_id' => $random]);
         return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true]);
     }
 
@@ -165,7 +167,10 @@ class VenteController extends Controller
     {
         $ventes = Vente::all();
         $Todayventes = Vente::whereDate('created_at', Carbon::today())->where('statut', 'vendu')->get();
-        $TodayVerssement = Vente::whereDate('created_at', Carbon::today())->where('statut', 'verssement')->orWhere('statut', 'verssement terminé')->get();
+        $TodayVerssement = Vente::whereDate('created_at', Carbon::today())->where(function($query) {
+                $query->where('statut', 'verssement')
+                      ->Orwhere('statut', 'verssement terminé');
+            })->get();
 
         $total = $Todayventes->sum('prix_total');
         $totalVerssement = $TodayVerssement->sum('verssement');

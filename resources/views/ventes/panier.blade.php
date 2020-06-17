@@ -60,11 +60,17 @@
 <script type="text/javascript">
   function verssement(){
   let montant = prompt('Montant du Verssement');
+  if(montant < 0 || montant > {{$total}}){
+    alert('Attention! Prix total inférieur au montant du verssement');
+    return false;
+  }
   let confirmation = confirm('Vous voulez faire un verssement de '+ montant + 'da Vous ne pouvez plus annuler cela');
   
-  if(montant > 0 && confirmation == true){
+  if(montant > 0 && montant < {{$total}}  && confirmation == true){
     document.getElementById('montant').value = montant;
     return true;
+  }else{
+    alert('Attention! Prix total inférieur au montant du verssement');
   }
   return false;
 
