@@ -72,7 +72,7 @@ class VenteController extends Controller
             $produit->save();
         }
         
-        $random = rand(9999999999,9999999999999999);
+        $random = rand(9999999999,getrandmax());
         Vente::where('statut', 'panier')->update(['statut' => 'vendu', 'bon_id' => $random]);
         
         return view('ventes.bon', ['ventes' => $ventes, 'bon' =>$random]);
@@ -92,7 +92,7 @@ class VenteController extends Controller
             $produit->save();
         }
         
-        $random = rand(9999999999,9999999999999999);
+        $random = rand(9999999999,getrandmax());
         $verssement = ceil($request->input('montant') / $ventes->count());
 
         Vente::where('statut', 'panier')->update(['statut' => 'verssement', 'bon_id' => $random, 'verssement' => $verssement, 'bon_id' => $random]);
@@ -136,7 +136,7 @@ class VenteController extends Controller
     public function imprimer_panier(){
 
         $ventes = Vente::where('statut', 'panier')->get();
-        $random = rand(9999999999,9999999999999999);
+        $random = rand(9999999999,getrandmax());
         Vente::where('statut', 'panier')->update(['statut' => 'pre facturation', 'bon_id' => $random]);
         return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true, 'bon' => $random]);
     }
