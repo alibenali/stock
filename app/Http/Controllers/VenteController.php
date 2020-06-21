@@ -11,6 +11,21 @@ use Carbon\carbon;
 
 class VenteController extends Controller
 {
+
+
+
+    public function random19() {
+      $number = "";
+      for($i=0; $i<19; $i++) {
+        $min = ($i == 0) ? 1:0;
+        $number .= mt_rand($min,3);
+      }
+      return $number;
+    }
+
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -72,7 +87,7 @@ class VenteController extends Controller
             $produit->save();
         }
         
-        $random = rand(9999999999,getrandmax());
+        $random =$this->random19();
         Vente::where('statut', 'panier')->update(['statut' => 'vendu', 'bon_id' => $random]);
         
         return view('ventes.bon', ['ventes' => $ventes, 'bon' =>$random]);
@@ -92,7 +107,7 @@ class VenteController extends Controller
             $produit->save();
         }
         
-        $random = rand(9999999999,getrandmax());
+        $random = $this->random19();
         $verssement = ceil($request->input('montant') / $ventes->count());
 
         Vente::where('statut', 'panier')->update(['statut' => 'verssement', 'bon_id' => $random, 'verssement' => $verssement, 'bon_id' => $random]);
@@ -136,7 +151,7 @@ class VenteController extends Controller
     public function imprimer_panier(){
 
         $ventes = Vente::where('statut', 'panier')->get();
-        $random = rand(9999999999,getrandmax());
+        $random = $this->random19();
         Vente::where('statut', 'panier')->update(['statut' => 'pre facturation', 'bon_id' => $random]);
         return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true, 'bon' => $random]);
     }
