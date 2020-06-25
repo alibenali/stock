@@ -111,8 +111,20 @@ class VenteController extends Controller
         $verssement = ceil($request->input('montant') / $ventes->count());
 
         Vente::where('statut', 'panier')->update(['statut' => 'verssement', 'bon_id' => $random, 'verssement' => $verssement, 'bon_id' => $random]);
+
+        // updating quantity of products
+        $ventes = Vente::where('bon_id', $random)->get();
+            foreach($ventes as $vente){
+                $produit = Produit::find($vente->produit_id);
+                $produit->quantite = $produit->quantite - $vente->quantite;
+                $produit->nbr_colis = $produit->quantite / $produit->colis;
+                if($produit->nbr_colis != $produit->quantite){
+                    $produit->nbr_colis = $produit->quantite / $produit->colis;
+                }
+                $produit->save();
+        }
                 
-        $verssement = Vente::whereBetween('bon_id', [$random-5, $random+5])->sum('ventes.verssement');
+        $verssement = Vente::where('bon_id', $random)->sum('ventes.verssement');
         return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true, 'verssement' => $verssement, 'bon' => $random]);
         
     }
@@ -127,23 +139,7 @@ class VenteController extends Controller
             $nouveauVerssement->save();
 
         }
-        $min = $vente->bon_id - 5;
-        $max = $vente->bon_id + 5;
-        $verssement = Vente::whereBetween('bon_id', [$min, $max])->sum('ventes.verssement');
-        $prix_total = Vente::where('bon_id', $bon_id)->sum('ventes.prix_total');
-        if($verssement == $prix_total){
-            Vente::whereBetween('bon_id', [$min, $max])->update(['statut' => 'verssement terminé']);
-            $ventes = Vente::where('bon_id', $bon_id)->get();
-            foreach($ventes as $vente){
-                $produit = Produit::find($vente->produit_id);
-                $produit->quantite = $produit->quantite - $vente->quantite;
-                $produit->nbr_colis = $produit->quantite / $produit->colis;
-                if($produit->nbr_colis != $produit->quantite){
-                    $produit->nbr_colis = $produit->quantite / $produit->colis;
-                }
-                $produit->save();
-        }
-        }
+
         $verssement = Vente::whereBetween('bon_id', [$bon_id-5, $bon_id+5])->sum('ventes.verssement');
         return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true, 'verssement' => $verssement, 'bon' => $bon_id+1]);
     }
@@ -227,21 +223,15 @@ class VenteController extends Controller
         $min = $vente->bon_id - 5;
         $max = $vente->bon_id + 5;
 
-        if($vente->statut == 'vendu' OR $vente->statut == 'verssement terminé'){
+        if($vente->statut == 'vendu' OR $vente->statut == 'verssement terminé' OR $vente->statut == 'verssement'){
             $produit = Produit::find($vente->produit_id);
             $produit->quantite = $produit->quantite + $vente->quantite;
             $produit->nbr_colis = $produit->quantite / $produit->colis;
             $produit->save(); 
             $vente->statut = 'Annulé';
             $vente->save();
-
-            Vente::whereBetween('bon_id', [$min, $max])->update(['statut' => 'Annulé']);
-
-        }elseif($vente->statut == 'verssement'){
-            $produit = Produit::find($vente->produit_id);
-            $vente->statut = 'Annulé';
-            $vente->save();
         }
+            Vente::whereBetween('bon_id', [$min, $max])->update(['statut' => 'Annulé']);
 
         return redirect('voire/ventes')->with('status', 'Vente annulé');
     }
