@@ -39,18 +39,19 @@
                 @else
         <h3 class="text-center mx-auto mt-2 mb-3">Panier vide</h3>
         @endif
-
-      @if($total_verse != 0 AND $total_verse < $total)
+      @if($total_verse != 0)
 
         <h3 class="text-center mx-auto d-block mt-2 mb-3">Totale Versé: {{number_format($total_verse, 0, '.', ' ')}}</h3>
+        @if($total_verse < $total)
         <div class="text-center mx-auto">
-        @if(number_format($total, 0, '.', ' ') > number_format($verssement, 0, '.', ' '))
         <form method="POST" action='{{ route('ajouter_verssement.vente', ['bon_id' => $bon_id]) }}' class="d-inline" onsubmit="return verssement()">
         @csrf
         <input type="hidden" name="montant" id="montant">
         <button class="btn-seconder d-inline">Ajouter Verssement</button>
-        </form>
-    	  @endif
+        </form>        
+        @endif
+        @else
+        Rien est versé
         @endif
       </div>
 
