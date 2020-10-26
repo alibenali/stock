@@ -16,9 +16,9 @@ class VenteController extends Controller
 
     public function random19() {
       $number = "";
-      for($i=0; $i<9; $i++) {
+      for($i=0; $i<19; $i++) {
         $min = ($i == 0) ? 1:0;
-        $number .= mt_rand($min,9);
+        $number .= mt_rand($min,3);
       }
       return $number;
     }
@@ -140,7 +140,7 @@ class VenteController extends Controller
 
         }
 
-        $verssement = Vente::whereBetween('bon_id', [$bon_id-5, $bon_id+5])->sum('ventes.verssement');
+        $verssement = Vente::whereBetween('bon_id', [$bon_id-5, $bon_id])->sum('ventes.verssement');
         return view('ventes.bon', ['ventes' => $ventes, 'prefacturation' => true, 'verssement' => $verssement, 'bon' => $bon_id+1]);
     }
 
@@ -175,9 +175,9 @@ class VenteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function voire($temps = 1)
+    public function voire()
     {
-        $ventes = Vente::whereDate('created_at', '>', Carbon::now()->subDays($temps))->get();
+        $ventes = Vente::all();
         $Todayventes = Vente::whereDate('created_at', Carbon::today())->where('statut', 'vendu')->get();
         $TodayVerssement = Vente::whereDate('created_at', Carbon::today())->where(function($query) {
                 $query->where('statut', 'verssement')
