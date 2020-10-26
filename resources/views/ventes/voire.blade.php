@@ -4,6 +4,7 @@
 <div class="container">
   <h5 class="text-center">Totale vendue aujourd'hui: <b>{{number_format($total, 0, '.', ' ')}}</b></h5>
   <h5 class="text-center mb-5">Totale versé aujourd'hui: <b>{{number_format($totalVerssement, 0, '.', ' ')}}</b></h5>
+
   <table class="table table-responsive-sm" id="vente">
       <thead>
         <tr>
@@ -45,6 +46,13 @@
           @endforeach
       </tbody>
     </table>
+	  <h5 class="text-center mt-5">
+		<a class="btn btn-dark" href="{{url('voire/ventes/')}}/1">Aujourd'hui</a>
+		<a class="btn btn-info" href="{{url('voire/ventes/')}}/7">Une Semaine</a>
+		<a class="btn btn-dark" href="{{url('voire/ventes/')}}/30">Un mois</a>
+		<a class="btn btn-info" href="{{url('voire/ventes/')}}/90">3 mois</a>
+		<a class="btn btn-dark" href="{{url('voire/ventes/')}}/365000">Tous</a>
+	</h5>
 </div>
 
 <script type="application/javascript">

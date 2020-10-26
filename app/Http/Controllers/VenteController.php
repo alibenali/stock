@@ -175,9 +175,9 @@ class VenteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function voire()
+    public function voire($temps = 1)
     {
-        $ventes = Vente::all();
+        $ventes = Vente::whereDate('created_at', '>', Carbon::now()->subDays($temps))->get();
         $Todayventes = Vente::whereDate('created_at', Carbon::today())->where('statut', 'vendu')->get();
         $TodayVerssement = Vente::whereDate('created_at', Carbon::today())->where(function($query) {
                 $query->where('statut', 'verssement')
