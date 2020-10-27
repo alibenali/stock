@@ -189,6 +189,24 @@ class VenteController extends Controller
 
         return view('ventes.voire', ['ventes'=> $ventes,'total'=>$total, 'totalVerssement' => $totalVerssement]);
     }
+	
+	public function verssements($temps = 1)
+    {
+        $ventes = Vente::whereDate('created_at', '>', Carbon::now()->subDays($temps))->where(function($query) {
+                $query->where('statut', 'verssement')
+                      ->Orwhere('statut', 'verssement terminé');
+					  })->get();
+        $Todayventes = Vente::whereDate('created_at', Carbon::today())->where('statut', 'vendu')->get();
+        $TodayVerssement = Vente::whereDate('created_at', Carbon::today())->where(function($query) {
+                $query->where('statut', 'verssement')
+                      ->Orwhere('statut', 'verssement terminé');
+            })->get();
+
+        $total = $Todayventes->sum('prix_total');
+        $totalVerssement = $TodayVerssement->sum('verssement');
+
+        return view('ventes.verssements', ['ventes'=> $ventes,'total'=>$total, 'totalVerssement' => $totalVerssement]);
+    }
 
     public function panier()
     {

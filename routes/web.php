@@ -51,6 +51,7 @@ Route::post('/desactiver/pourcentage/{id}', 'PourcentageController@desactiver')-
 Route::post('/activer/pourcentage/{id}', 'PourcentageController@activer')->name('activer.pourcentage');
 
 Route::get('/voire/ventes/{temps?}', 'VenteController@voire')->name('voire.ventes');
+Route::get('/voire/verssements/{temps?}', 'VenteController@verssements')->name('voire.verssements');
 Route::get('/ventes/panier', 'VenteController@panier')->name('panier.ventes');
 Route::get('/ventes/panier/{bon_id}', 'VenteController@panier_bon')->name('panier.ventes');
 Route::get('/ajouter/vente/{produit}/{pourcentage}', 'VenteController@ajouter')->name('ajouter.vente');

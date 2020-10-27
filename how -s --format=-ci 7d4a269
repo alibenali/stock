@@ -1,0 +1,78 @@
+[33m7d4a269[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{0}: reset: moving to origin/master
+[33m8d015a5[m HEAD@{1}: reset: moving to HEAD^
+[33m992dd7f[m HEAD@{2}: reset: moving to HEAD
+[33m992dd7f[m HEAD@{3}: commit (merge): Merge
+[33m8d015a5[m HEAD@{4}: commit: Filter ventes rows by date
+[33m7d4a269[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{5}: commit: Fix verssement -product
+[33m7dd85ac[m HEAD@{6}: commit: fix rand float
+[33mb2d97d7[m HEAD@{7}: commit: fixing rand max
+[33m858df33[m[33m ([m[1;31morigin/verssement[m[33m, [m[1;32mverssement[m[33m)[m HEAD@{8}: checkout: moving from verssement to master
+[33m858df33[m[33m ([m[1;31morigin/verssement[m[33m, [m[1;32mverssement[m[33m)[m HEAD@{9}: checkout: moving from master to verssement
+[33m858df33[m[33m ([m[1;31morigin/verssement[m[33m, [m[1;32mverssement[m[33m)[m HEAD@{10}: commit: fixing bugs
+[33m1584494[m HEAD@{11}: commit: bon verssement
+[33mce6deeb[m HEAD@{12}: commit: Annuler verssement et verssement terminé
+[33m91deaa7[m HEAD@{13}: commit: versement marche
+[33m4f42523[m HEAD@{14}: commit: Permission modifer produit and annuler vente
+[33m510b5b6[m HEAD@{15}: commit: redirect after creating famille
+[33m04126db[m HEAD@{16}: commit: Adding familles to caisse
+[33m3e69246[m HEAD@{17}: commit: analys objectif and add datalist for it
+[33mb00a1ca[m HEAD@{18}: commit: Caisse from admin to user access
+[33mf3b722b[m HEAD@{19}: commit: Fixing Caisse Calculation
+[33mbd2cc93[m HEAD@{20}: commit: pre facturation design BON
+[33md6404d1[m HEAD@{21}: commit: Fixing Caisse
+[33m3e2a01e[m HEAD@{22}: commit: some changes
+[33m1ba5401[m HEAD@{23}: pull: Fast-forward
+[33m9df9580[m HEAD@{24}: checkout: moving from caisse to master
+[33m4ff2e64[m[33m ([m[1;31morigin/caisse[m[33m, [m[1;32mcaisse[m[33m)[m HEAD@{25}: commit: Caisse marche
+[33m9df9580[m HEAD@{26}: checkout: moving from master to caisse
+[33m9df9580[m HEAD@{27}: checkout: moving from special_pourcentage to master
+[33mb86af2d[m[33m ([m[1;31morigin/special_pourcentage[m[33m, [m[1;32mspecial_pourcentage[m[33m)[m HEAD@{28}: commit: Specjal percentage added
+[33m9df9580[m HEAD@{29}: checkout: moving from master to special_pourcentage
+[33m9df9580[m HEAD@{30}: commit: pre facturation
+[33m702cebc[m HEAD@{31}: commit: tadays ventes should have the condition: where status = vendu
+[33mc76e865[m HEAD@{32}: commit: change status when clicking prefacturation
+[33m4c71d66[m HEAD@{33}: pull: Fast-forward
+[33m39e348f[m HEAD@{34}: checkout: moving from prix_unit_issue to master
+[33me84d988[m[33m ([m[1;32mprix_unit_issue[m[33m)[m HEAD@{35}: commit: Fixing status of (vendu aujourdhui) to be just for the selled ones
+[33m42d177c[m[33m ([m[1;31morigin/prix_unit_issue[m[33m)[m HEAD@{36}: commit: a lot of issue of prix unit just related stuff
+[33mdcdc4cd[m HEAD@{37}: commit: Prix unit problem
+[33m39e348f[m HEAD@{38}: checkout: moving from master to prix_unit_issue
+[33m39e348f[m HEAD@{39}: pull: Fast-forward
+[33m8512261[m HEAD@{40}: checkout: moving from cart_issue to master
+[33m5c99fac[m[33m ([m[1;31morigin/cart_issue[m[33m, [m[1;32mcart_issue[m[33m)[m HEAD@{41}: commit: fixing the issue by adding annuler_panier
+[33m0e49297[m HEAD@{42}: commit: fixing the issue by adding annuler_panier
+[33m8512261[m HEAD@{43}: checkout: moving from master to cart_issue
+[33m8512261[m HEAD@{44}: commit: Adding Total ventes
+[33m0cacd30[m HEAD@{45}: commit: Gla3t kalmat total
+[33mc1cd241[m HEAD@{46}: commit: Sorting ventes descending
+[33m619bdc0[m HEAD@{47}: commit: space each 3 number in the price
+[33m3625cc3[m HEAD@{48}: commit: space each 3 number in the price
+[33m7374efe[m HEAD@{49}: commit: space each 3 number in the price
+[33mded8f47[m HEAD@{50}: commit: replace quantity of server to nbr_boites
+[33m4f33b13[m HEAD@{51}: commit: adding nbr_boites in blon
+[33m56c2add[m HEAD@{52}: commit: Print Total in Panier before printing
+[33m61ce71f[m HEAD@{53}: commit: esignation and fournisseur reverse positions
+[33mf85ee07[m HEAD@{54}: commit: Ciel prix unite
+[33mbb51aa8[m HEAD@{55}: commit: ciel of prix unit and prix total in vente insert
+[33mf7540f4[m HEAD@{56}: commit: width page
+[33md48d5dd[m HEAD@{57}: commit: 21*29
+[33m2649d89[m HEAD@{58}: commit: le wahtsapp w le viber xD
+[33m388f180[m HEAD@{59}: commit: Bon modifications
+[33me6e5b8a[m HEAD@{60}: checkout: moving from stable to master
+[33m7e987c4[m[33m ([m[1;31morigin/stable[m[33m, [m[1;32mstable[m[33m, [m[1;32mpanier[m[33m)[m HEAD@{61}: checkout: moving from master to stable
+[33me6e5b8a[m HEAD@{62}: checkout: moving from stable to master
+[33m7e987c4[m[33m ([m[1;31morigin/stable[m[33m, [m[1;32mstable[m[33m, [m[1;32mpanier[m[33m)[m HEAD@{63}: checkout: moving from master to stable
+[33me6e5b8a[m HEAD@{64}: commit: Print & View all products
+[33m7ed24ca[m HEAD@{65}: commit: Adding panier
+[33m567a3da[m HEAD@{66}: commit: Some modifications
+[33m12730c5[m HEAD@{67}: reset: moving to HEAD
+[33m12730c5[m HEAD@{68}: commit: Print & view all products
+[33m7e987c4[m[33m ([m[1;31morigin/stable[m[33m, [m[1;32mstable[m[33m, [m[1;32mpanier[m[33m)[m HEAD@{69}: checkout: moving from panier to master
+[33m7e987c4[m[33m ([m[1;31morigin/stable[m[33m, [m[1;32mstable[m[33m, [m[1;32mpanier[m[33m)[m HEAD@{70}: checkout: moving from master to panier
+[33m7e987c4[m[33m ([m[1;31morigin/stable[m[33m, [m[1;32mstable[m[33m, [m[1;32mpanier[m[33m)[m HEAD@{71}: pull: Fast-forward
+[33m19e1dc9[m HEAD@{72}: commit: Removing tests
+[33mf228610[m HEAD@{73}: commit: Adding URL for (produit) in (achat) table
+[33m7605c9d[m HEAD@{74}: commit: Adding script for calculating (quantite) after writing (colis, nbr_colis)
+[33m6c3024b[m HEAD@{75}: commit: Responsive search table
+[33maea765a[m HEAD@{76}: commit: Insert new (achat) when inserting a new (produit)
+[33me6666b2[m HEAD@{77}: commit (initial): First commit
